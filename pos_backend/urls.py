@@ -39,12 +39,16 @@ schema_view = get_schema_view(
 )
 """ -------------- """
 
+def index(request):
+    return '<h1><center>API POS BACKEND VERSION 1.0.0</center></h1>'
+
 urlpatterns = [
+    path('',index),
     path('api/',include('api.urls')),
     path('admin/', admin.site.urls),
     path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('api/admin/',include('api_admin.urls')),
-    path('<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('docs<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
