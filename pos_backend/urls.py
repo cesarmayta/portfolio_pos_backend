@@ -25,6 +25,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from django.http import JsonResponse
+
 schema_view = get_schema_view(
    openapi.Info(
       title="POS API",
@@ -40,7 +42,11 @@ schema_view = get_schema_view(
 """ -------------- """
 
 def index(request):
-    return '<h1><center>API POS BACKEND VERSION 1.0.0</center></h1>'
+    context = {
+        'status':True,
+        'content':'API POS BACKEND VERSION 1.0'
+    }
+    return JsonResponse(context)
 
 urlpatterns = [
     path('',index),
